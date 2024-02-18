@@ -32,12 +32,14 @@ case $1 in
    
 	  
 	ensure_entry
-		if ! [[ -d $space/$workdir ]];then
-				mkdir $space/$workdir
-				jq   ".contents[]" $space/.config/$workdir.json |parse_link
-			else
-				echo "wokspace already present"
-		fi
+	if ! [[ -d $space/$workdir ]];then
+			mkdir $space/$workdir
+			jq   ".contents[]" $space/.config/$workdir.json |parse_link
+		else
+			echo "wokspace already present"
+	fi
+	cd $space/$workdir	
+	bash
 	;;
 	unload)
 		if [[ -d $space/$workdir ]]; then
@@ -57,8 +59,5 @@ esac
 
 
 
-cd $space/$workdir
-
-exec bash
 
 
